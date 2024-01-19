@@ -1,4 +1,7 @@
-Hello and welcome to this blog. Edit the `index.md` file to change this content. All pages on the blog, including this one, use [Markdown](https://guides.github.com/features/mastering-markdown/). You can include images:
+# About
+Hello!I am a computer science student enrolled in Shanghaitech University in 2021, you can call me Abigale.
+
+You can include images:
 
 ![Image of fast.ai logo](images/logo.png)
 
