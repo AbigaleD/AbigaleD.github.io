@@ -5,5 +5,5 @@ Besides computer science, I am really interested in a diveristy of culture,makin
 
 ![cats](images/cat.jpeg)
 
-## This is my recent schedule
+## Recent Schedule (最近安排)
 
