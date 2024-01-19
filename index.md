@@ -3,7 +3,7 @@ Hello!I am an undergraduate computer science student enrolled in Shanghaitech Un
 Besides computer science, I am really interested in a diveristy of culture,making part of a reason that I wish to study abroad (USA/Europe) for my graduate study.My mbti is ISTP but I used to be a J person,which I wish I could always stay J.
 
 
-![Image of fast.ai logo](images/logo.png)
+![cats](images/cat.jpeg)
 
 ## This is a title
 
