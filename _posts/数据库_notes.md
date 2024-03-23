@@ -1,0 +1,774 @@
+#### Data base
+defninition : set of named relations 我们把它画成can(罐头）的形状
+Relation(Table):
+- Schema:description (“metadata”)
+- Instance:set of data satisfying the schema
+#### Attribute （属性）
+Column ,fileld
+#### DDL - Data Definition Language
+DDL 用于修改和定义数据库的模式结构，通过ddl你可以创建/修改删除数据库表格和其他对象，比如 使用’CREAETE TABLE’,’ALTER TABLE’,’DROP TABLE’等命令来创建，修改或者删除表
+#### DML - Data Manipulation Language
+DML用于数据库中的数据进行操作，包括插入，查询和更新数据。它允许用户便携查询来检索数据(使用’SELECT’）和更新数据(使用’UPDATE’)、插入新数据’INSERT’和删除数据，使用’DELETE’
+
+#### RDBMS(关系型数据库）
+关系表
+–unique attribute names, atomic types
+#### MySQL与NoSQL的区别
+MySQL是一种关系数据库管理系统（RDBMS），它使用结构化查询语言（SQL）来管理存储在表中的数据。MySQL中的数据是以行和列的形式存储的，非常适合处理结构化数据。关系数据库非常擅长处理复杂的查询，因为它们可以非常高效地在多个表之间建立关系。
+
+NoSQL是指非关系型数据库，这是一个总称，包括了多种不同类型的数据库，比如文档数据库（如MongoDB）、键值存储（如Redis）、宽列存储（如Cassandra）和图形数据库（如Neo4j）。NoSQL数据库不使用传统的表格结构来存储数据，因此它们可以非常灵活地处理不规则或半结构化的数据。NoSQL数据库通常在处理大量数据和高并发请求时表现更好，因为它们的设计更注重性能、可扩展性和灵活性。
+
+SQL查询分为以下几个阶段:
+Parsing：将SQL语句分解成可理解的片段。
+check: 检查语法是否正确。
+veirify:验证所引用的表格和列是否存在。
+语义检查：
+确认查询中的字段、条件和函数是否有意义和相关。
+查询优化：
+确定执行查询的最有效率的方法。
+可能包括选择使用哪个索引、如何连接表以及在什么顺序上执行操作。
+查询解析：DBMS的查询解析器将SQL查询转换为一种内部格式，以便进一步处理。
+查询优化：优化器将解析好的查询进行分析，并尝试找到执行查询的最有效路径。
+查询执行：执行器按照优化器确定的路径执行查询，访问数据库中的数据，并进行必要的操作（如选择、连接、排序等）。
+结果返回：执行完毕后，DBMS将结果集返回给SQL客户端，供用户查看。
+
+The SQL DDL: The sailors
+CREATE TABLE SAILORS(
+```
+sid INTEGER,
+sname CHAR(20),
+rating INTEGER,
+age FLOAT,
+PRIMARY KEY (sid));
+```
+- **CREATE TABLE Sailors**: 这表示要创建一个新的表格，表格的名字是 **Sailors**。
+- **sid INTEGER**: 这定义了表中的一个列（字段），名为 **sid**，数据类型为 **INTEGER**。这意味着在这个列中可以存储整数值。
+- **sname CHAR(20)**: 这定义了另一个列，名为 **sname**，数据类型为 **CHAR(20)**。**CHAR** 是字符数据类型，括号内的数字表示字符的最大长度，这里是20个字符。所以 **sname** 可以存储最多20个字符的字符串。
+- **rating INTEGER**: 这又定义了一个列，名为 **rating**，数据类型为 **INTEGER**，与 **sid** 类似，可以存储整数值。
+- **age FLOAT**: 最后定义了一个名为 **age** 的列，其数据类型为 **FLOAT**。**FLOAT** 数据类型用于存储带有小数点的数值，即浮点数
+
+#### Primary Key columns
+Provides a unique “lookup key” for the relation (在表中是唯一的）
+Cannot have any duplicate values
+Can be made up of \>1 columns
+
+#### Foreign Key
+在关系型数据库中，外键(FOREIGN KEY)是用来创建两个表之间联系的一种数据库的约束。外键指向的是另一个表的主键，这样可以维护跨表的数据的完整性和关系
+
+#### Basic Single Table Quries
+```mysql
+SELECT [DISTINCT] <column expression list>
+FROM <single table>
+[WHERE <predicate>]
+Simplest version is straight forward 
+```
+
+
+
+- produce all tuples in the table that satisfy the predicate 
+- output the expression in the SELECT list 
+- Expression can be a column reference or an arithmetic expression over column refs
+#### HAVING
+
+```mysql
+SELECT [DISTINCT] AVG(S.gpa), S.dept
+FROM Students S
+GROUP BY S.dept
+HAVING COUNT(*) > 2
+```
+
+
+
+
+#### LIMIT语句
+LIMIT子句只用于产生指定数量的结果航，这里是三行，LIMIT 语句通常要和’ORDER BY’一起使用 ，因为如果没有ORDER BY 结果的顺序是不确定的，返回哪三行也成为不确定的 没有ORDER BY的LIMIT使用不是"纯粹的"声明性构造，因为没有排序，所返回的记录取决于查询处理的算法。
+总结起来就是
+
+```mysql
+SELECT [DISTINCT] <column expression list>
+FROM <single table>
+[WHERE <predicate> ]
+[GROUP BY <column list>
+[HAVING <predicate> ] ]
+[ORDER BY <column list> ]
+[LIMIT <integer>];
+```
+
+
+
+
+
+###### Column Names and Table Aliases
+
+SELECT Sailors.sid,sname,bid
+FROM Sailors,Reseerves
+WHERE Sailors.sid = Reserves.sid
+
+SELECT S.sid,sname,bid
+FROM Sailors AS S,Reserves AS R
+WHERE S.sid = R.sid
+
+#### 集合Set Sematics
+UNION 并
+INTERSECT 交 
+EXCEPT 
+#### SQL嵌套查询
+核心是IN/NOT IN/EXISTS关键字
+或者 op ANY/ALL
+SELECT S.sname
+FROM Sailors S
+WHERE S.sid IN (SELECT R.sid
+```
+            FROM Reserves R
+            WHERE R.bid=102)
+```
+
+子查询：(SELECT R.sid FROM Reserves R WHERE R.bid=102) 这部分查询从"Reserves"表中找出所有预订了编号为102的船只的水手的ID（sid）。
+主查询：SELECT S.sname FROM Sailors S WHERE S.sid IN ... 这部分查询从"Sailors"表中选择那些其ID（sid）出现在子查询结果中的水手的名字（sname）
+#### EXIST 操作符
+SELECT S.sname
+FROM Sailors S
+WHERE EXISTS
+  (SELECT R.sid
+   FROM Reserves R
+   WHERE R.bid=103)
+这个查询检查是否存在至少一个在Reserves表中为船只编号103做出预约的水手，如果存在，那么外层查询就会返回所有水手的名字。注意，虽然这个查询语法上是合法的，但由于外层查询没有引用内层查询的任何结果，所以实际上它会返回Sailors表中所有水手的名字，只要Reserves表中存在至少一条bid为103的记录。这意味着，无论Reserves表中哪个水手预约了编号为103的船，结果都将是Sailors表中所有水手的名单。这可能不是查询最初的意图，因为通常我们期望的是只返回那些确实预约了船只的水手的名字。
+
+###### 关系除法(relational division)
+
+关系除法用来找出一组满足条件的所有记录，在这个例子中是“找出预定了所有船只的水手”
+SELECT S.sname
+FROM Sailors S
+WHERE NOT EXISTS
+```mysql
+  (SELECT B.bid
+   FROM Boats B
+   WHERE NOT EXISTS
+         (SELECT R.bid
+          FROM Reserves R
+          WHERE R.bid = B.bid AND R.sid = S.sid))
+```
+
+**最内层的NOT EXIST 查询** :对于每一艘船只 b.bid 它检查是否有像对应的预定记录在Reserve 表中 
+#### WHERE NOT EXISTS
+其中 WHERE NOT EXIST 子句用来测试是否不返回任何结果。如果子查询没有返回任何行，整个WHERE NOT EXISTS 表大致为真 否则为假
+#### BOOLEAN布尔值
+SELECT R.sid
+FROM Boats B,Reserves R
+WHERE R.bid = B.bid AND 
+```
+(B.color = 'red' OR B.color = 'green')
+```
+#### 算数运算符(Arithmetic Expressions)
+SELECT S.age,S.age-5 AS age1,2\*S.age AS age2
+FROM Sailors AS S
+WHERE S.name = 'Popeye'
+
+SELECT S1.name AS name1,S2.name AS name2
+FROM Sailors AS S1,Sailors AS S2
+WHERE 2\*S1.rating = S2.rating -1
+#### 比较操作符
+ANY 如果比较符为真，与子查询返回的任意一个值相比
+ALL 只有当操作弗比较对所有子查询都是真，才返回真
+SELECT \*
+FROM Sailors S
+WHERE S.rating \> ANY
+
+```mysql
+  (SELECT S2.rating
+   FROM Sailors S2
+   WHERE S2.sname='Popeye')
+```
+#### 最大值参数
+
+```mysql 
+SELECT *
+FROM Sailors S
+WHERE S.rating = (SELECT MAX(S2.rating) FROM Sailors S2)
+
+SELECT *
+FROM Sailors S
+WHERE S.rating >= ALL (SELECT S2.rating FROM Sailors S2)
+选择了sailor 中的所有列，条件是水手的评分要大于或等于表中其他水手的评分。
+SELECT *
+FROM Sailors S
+ORDER BY rating DESC
+LIMIT 1;
+```
+
+
+
+
+典型错误的写法:
+SELECT MAX(S.rating) FROM Sailors S;
+这个查询返回Sailors表中最高的评级值，但它不返回具有该评级的水手的任何其他信息。
+SELECT S.\*, MAX(S.rating) FROM Sailors S;
+这个查询试图返回所有的列（S.）以及最高的评级值。但这种写法是错误的，因为它没有正确地使用聚合函数MAX。在没有GROUP BY子句的情况下，你不能同时选择所有列（S.）和一个聚合列（MAX(S.rating)），除非聚合列是在子查询中使用。
+
+#### UNION ALL,INTERSECT ALL
+UNION ALL : sum of cardinalities
+{A(4+2),B(2+3),C(1+1),D(1+0),E(0+1)}
+INTERSECT ALL
+{A(min(4,2)),B(min(2,3)),C(min(1,1)),D(min(1,0)),E(min(0,1))}
+EXCEPT ALL:difference of cardinalities
+{A(4-2},B(2-3),C(1-1),D(1-0),E(0-1)} = {A,A,D}
+#### Inner join
+SELECT s.\*,r.bid
+FROM Sailors s, Reserves r
+WHERE s.sid = r.sid
+AND ...
+SELECT s.\*, r.bid
+FROM Sailors s INNER JOIN Reserves r
+ON s.sid = r.sid
+WHERE ...
+#### SQL join 模板
+
+```mysql
+SELECT <column expression list>
+FROM table_name
+[INNER | NATURAL | {LEFT | RIGHT | FULL } {OUTER}] JOIN table_name
+ON <qualification list>
+WHERE ...
+<column expression list>: 这是你想要从连接的结果集中选择的列或表达式的列表。
+<qualification list>: 这是ON子句中指定的条件，它确定如何连接两个表。对于NATURAL JOIN，不需要这个。
+WHERE ...: 这是一个过滤器，用于返回连接操作后满足特定条件的行
+```
+
+INNER JOIN（内连接,或等值连接）：获取两个表中字段匹配关系的记录。 LEFT JOIN（左连接）：获取左表所有记录，即使右表没有对应匹配的记录。 RIGHT JOIN（右连接）： 与 LEFT JOIN 相反，用于获取右表所有记录，即使左表没有对应匹配的记录。
+
+这里是 COUNT(\*) 的一些关键点：
+
+```
+•	COUNT(*) 计算的是所有行的数量，包括那些包含 NULL 值的行。
+•	与 COUNT(*) 相比，COUNT(column_name) 仅计算指定列中非 NULL 值的数量。如果指定的列中含有 NULL 值，则这些行不会被包含在计数中。
+•	COUNT(1) 与 COUNT(*) 功能相同，都是用来计数行数，但 COUNT(*) 在多数数据库系统中更为常用和标准。
+```
+
+在使用聚合函数如 COUNT(\*) 时，通常会与 GROUP BY 子句结合使用，来计算分组后每组的行数。例如，如果你想知道每个客户有多少条订单记录，你可以编写类似下面的 SQL 查询：
+
+SELECT customer\_id, COUNT(\*)
+FROM orders
+GROUP BY customer\_id
+
+这个查询会返回每个客户的订单数量，其中 customer\_id 是分组依据，而 COUNT(\*) 则计算每个客户对应的订单行数。
+
+#### Views:Named Queries 视图对关系表
+CREATE VIEW view\_name 
+AS select\_statement
+
+CREATE VIEW Redcount
+AS SELECT B.bid,COUNT(\*) AS scount
+```
+FROM Boats2 B,Reserves2 R
+WHERE R.bid=B.bid AND B.color='red'
+GROUP BY B.bid
+```
+选择Boat2 中bid 列 并计算 每个bid 的对应的总行数，指定涉及查询的表，指定
+
+SELECT bname,scount
+FROM Boats2 B,
+(SELECT B.bid,COUNT(\*)
+```
+FROM Boats2 B,Reserves2 R
+WHERE R.bid = B
+```
+#### NULL 值及其对sql查询的影响
+字段值有时候是未知的：在数据库中，有时候某些字段的值是未知的，或者不存在
+，SQL使用NULL 来表示这样的情况，而且无论是数字字符串还是其他什么的都可以用NULL来表示
+NULL 的存在复杂化了很多问题： 选择谓词(WHERE 语句)在使用 WHERE 语句来过滤数据时，需要特别处理NULL值，因为NULL与任何其他的值的比较都不会返回True.
+聚合函数:在使用如SUM AVG 等聚合函数的时候NULL 的值通常会被忽略，但是对于COUNT 函数，`COUNT(*)`函数会计算包含 NULL的行数，而`COUNT(column)`函数只会计算非NULL 的数量
+NULL非常自然地来自于外连接
+
+在SQL中，NULL是一个特殊的值，你不能用普通的等于(=)或不等于(\<\> 或 !=)运算符来与之比较。你需要使用IS NULL或IS NOT NULL来检查一个字段是否为NULL。
+
+如果你想返回referee\_id不等于2，或者是NULL的所有客户名称，你应该使用IS NULL或者\<\>运算符，并且使用OR来结合这两个条件。
+
+所以你的查询应该这样写：
+
+```mysql
+SELECT name 
+FROM Customer C
+WHERE C.referee_id <> 2 OR C.referee_id IS NULL;
+```
+
+这条SQL语句将返回所有referee\_id不等于2的记录，以及所有referee\_id为NULL的记录。
+
+#### 数据库管理系统（DBMS)的不同层级
+<img src = "数据库_img/传输速度与大小的关系.png">
+
+<img src = "/Users/abigale.dong/Desktop/learning/数据库/数据库_img/数据库的不同层级.png">
+
+最上层是 SQL Client，这是用户与 DBMS 交互的界面。
+然后是 Query Parsing & Optimization，这一层解析查询并进行优化，以提高执行效率。
+接下来是 Relational Operators 层，它执行 SQL 查询中的关系操作，如连接（joins）和选择（selects）。
+紧接着是 Files and Index Management 层，这一层负责数据的物理存储和索引的维护。
+最底层是实际的 Database，这是数据被存储的地方。
+\(img)
+\(img)
+ seek time (moving arms to position disk head on track)
+• \~2-3 ms on average
+• rotational delay (waiting for block to rotate under head)
+• \~0-4 ms (15000 RPM)
+• transfer time (actually moving data to/from disk surface)
+• \~0.25 ms per 64KB page
+寻找和旋转的状态比较长，传输的时间几乎可以忽略不计
+固态硬盘又称为ssd
+
+#### 细粒度读取（Fine-grain reads）：
+这指的是可以以较小的数据块（例如4-8KB）进行读取操作，这使得读取操作可以针对小量数据进行快速访问。
+ READ: transfer “page” of data from disk to RAM.
+#### 粗粒度写入（Coarse-grain writes）：
+相比于读取，写入操作通常在较大的数据块上执行，例如1-2MB。这意味着每次写入涉及的数据量比读取时多。
+ WRITE: transfer “page” of data from RAM to disk.
+
+###### 有限的擦除次数（Erasures before failure）：
+
+NAND闪存单元在出现故障之前只能被擦除有限次数，通常是2千到3千次。因此，为了延长SSD的寿命，通常采用“磨损均衡”（wear leveling）策略，即在驱动器内部移动频繁写入的数据块，以防止某个区域过度磨损。
+
+###### 写放大（Write amplification）：
+
+在某些情况下，实际写入到NAND闪存的数据量会比应用程序请求的多，这是由于写操作和垃圾回收（garbage collection）机制导致的。为了在内部优化和重新组织数据存储，SSD可能需要移动和重写数据，这可能导致额外的写入操作。
+SSD比磁盘快100倍左右
+同样的钱，买到的磁盘存储量大概是SSD的10倍左右
+
+###### “下一个”块概念：
+
+同一轨道上的连续块，首先是这些，然后是同一柱面（cylinder）上的块，然后是相邻柱面上的块。
+通过在磁盘上连续地按照“下一个”来安排文件页面，这样可以最小化寻道（seek）和旋转延迟（rotational delay）。
+对于顺序扫描，可以预先获取（pre-fetch）多个块。
+读取大量连续的块。
+
+#### 高扇出(HIgh fan-out)
+通常用于描述树形数据结构，这里的“扇出”指的是树中每个节点的子节点数量。高扇出意味着每个节点有许多子节点，这样的数据结构可以有效减少搜索、插入和删除操作所需的层数。
+\(img)
+#### 固态硬盘（SSD）中的闪存技术（特别是NAND闪存)
+细粒度读取（4-8K读取）和粗粒度写入（1-2MB写入）。
+在故障之前只能进行大约2000到3000次擦除操作，所以需要移动频繁写入的单元以分散穿戴，这个过程被称为“磨损均衡”（wear leveling）。
+写入放大：由于使用了大的存储单元，因此需要重新组织存储以管理磨损和垃圾回收。
+#### Block 和 Page
+Block = Unit of transfer for disk read/write
+Book says 4KB
+Page : block很多情况下的同义词，“page”是a block size chunk of RAM
+
+数据库文件（DB FILE）：是由多个页面（pages）组成的集合，每个页面包含了多个记录（records）。
+数据库管理系统（DBMS）的高层API：
+插入（Insert）、删除（delete）或修改（modify）记录。
+通过记录ID（record id）获取特定记录。这里的记录ID是一个指针，它编码了页面ID（pageID）和该页面上的位置（location on page）。扫描（Scan）所有记录，可能会附加一些条件来检索记录。
+跨越性：
+这种数据库文件可以跨越多个操作系统文件甚至不同的机器。
+或者直接使用“原始”磁盘设备。
+
+##### FIle of Pages of Records
+
+数据库文件（DB FILE）：是由多个页面（pages）组成的集合，每个页面包含了多个记录（records）。
+数据库管理系统（DBMS）的高层API：
+插入（Insert）、删除（delete）或修改（modify）记录。
+通过记录ID（record id）获取特定记录。这里的记录ID是一个指针，它编码了页面ID（pageID）和该页面上的位置（location on page）。
+扫描（Scan）所有记录，可能会附加一些条件来检索记录。
+跨越性：
+这种数据库文件可以跨越多个操作系统文件甚至不同的机器。
+或者直接使用“原始”磁盘设备。
+
+###### 多种数据库文件结构
+
+- **无序堆文件（Unordered Heap Files）**
+  - 记录随意放置在各个页面上
+- **聚集堆文件（Clustered Heap Files）**
+  - 记录和页面被分组
+- **排序文件（Sorted Files）**
+  - 页面和记录按排序顺序排列
+- **索引文件（Index Files）**
+  - B+ 树、线性哈希等
+  - 可能包含记录或指向其他文件中的记录
+##### 把 堆文件当成列表
+表被编码为文件，这些文件是页面的集合。
+页面目录提供页面的位置和空闲空间的信息。
+- 记录数（Number of records）：页面中记录的数量。
+- 空闲空间（Free space）：页面内未被使用的空间量。
+- 下一个/最后一个指针（Next/last pointer）：可能用于链表结构中，指向页面序列中的下一个或最后一个页面。
+- 位图（Bitmaps）、槽表（Slot Table）：这些结构用于管理页面内的记录，例如位图可能用于标识哪些记录槽（slot）是空的或被占用的，槽表则记录每个记录的位置。
+
+#### Index
+
+#### Heap File
+
+## 需要区别一下ISAM树和B+树，这后面的是B+树
+> ISAM树和B+树都是数据库和文件系统中用于数据存储和检索的数据结构。
+
+### ISAM树（Indexed Sequential Access Method）
+
+ISAM树是一种文件组织技术，它提供了一种在磁盘上存储记录的方式，使得既可以顺序访问也可以随机访问。ISAM的核心思想是将文件分为两个部分：一个是顺序存储的数据区，另一个是一个或多个索引区。
+
+- **数据区**：数据按顺序存储，每个记录可以是固定长度也可以是可变长度。
+- **索引区**：包含了指向数据区中记录的指针，索引区本身可以有多层，每一层的索引指向下一层，直到指向数据区的记录。
+
+ISAM的一个限制是索引结构是静态的，当数据集增长时，可能需要重新组织文件来维持性能。
+
+### B+树
+
+B+树是一种自平衡的树数据结构，它维持数据在树中的排序，使得查找、顺序访问、插入和删除等操作都可以在对数时间内完成。B+树广泛应用于数据库和文件系统中，因为它们非常适合大量数据的存储和检索。
+
+B+树的特点包括：
+
+- **节点分裂**：当一个节点中的条目数超过了预设的最大数量（通常由磁盘页的大小决定），它会分裂成两个节点，保持树的平衡。
+- **所有数据指针在叶子节点**：B+树的所有数据指针都位于叶子节点中，非叶节点只存储键值作为索引。这意味着实际的数据值是分离的，只有树的叶子节点包含数据指针。
+- **叶子节点链接**：B+树的叶子节点按键值顺序链接，这为顺序访问提供了高效的途径。
+
+B+树相较于其他树结构（如二叉树、B树等）的优势在于其高度平衡和页读取效率，使得它特别适用于磁盘存储和大型数据库系统。
+For Heap FIle
+Insert always appends to end of file堆文件是一种没有排序的文件，新记录总是添加到文件的末尾
+For Sorted File
+
+#### cost of
+Find Key 8:
+P(i) 表示特定键在第 $\mathrm{i}$ 页的概率is $\frac{1}{B}$
+T(i) Number of pages touched if key on page i is i因为是堆文件, 所以如果键在第 $\mathrm{i}$ 页, 你必须访问 $\mathrm{i}$ 页
+B: The number of data blocks 数据块的数量
+R: Number of records per block 
+D:Average time to read/write disk block
+
+$T(i)$ 表示如果键在第 $\mathrm{i}$ 页, 需要访问的页数。因为是堆文件, 所以如果键在第 $\mathrm{i}$ 页, 你必须访问 $\mathrm{i}$ 页来找到它。
+期望的页数是所有可能情况下, 每种情况页数的概率加权和, 即 $\sum_{i=1}^B T(i) \cdot P(i)$ 。这里, 因为 $P(i)$ 对于所有 $\mathrm{i}$ 都是相同的, 它简化为 $\frac{1}{B} \cdot \sum_{i=1}^B i$ 。
+最后的公式展开后是一个等差数列求和公式, $\sum_{i=1}^B i$ 从 1 加到 $\mathrm{B}$, 结果是 $\frac{B(B+1)}{2}$ 。乘以前面的 $\frac{1}{B}$就得到 $\frac{B+1}{2}$ 
+这个结果表示查找任何键值时, 期望访问的页数平均是 $\frac{B+1}{2}$ 。但是由于在实际应用中, $\mathrm{B}$ 通常非常大, 所以 $\frac{B+1}{2}$ 可以近似为 $\frac{B}{2}$​ 。
+
+对于 颜色的解释：
+浅蓝色（第一张图的顶部节点和第二张图的中间节点）代表初始查找阶段，即开始时读取的页面。
+白色节点代表随后的中间步骤，即查找过程中可能会触及的页面。
+黑色节点（第一张图中的底部节点）代表查找的最后阶段或最坏情况，即需要检查所有页面才能找到所需的键。
+
+#### 插入4.5堆文件和已排序文件
+
+- 插入新记录（如键值4.5）通常很简单，你只需将新记录“粘贴”在文件末尾。
+- 成本是“2\*D”，这可能代表着两个磁盘I/O操作，一个是读取最后一页，以确定是否有足够的空间进行追加，另一个是写操作，将新的记录追加到页中。
+- “为什么是2？”这个问题可能是在询问为什么成本是两倍的磁盘I/O操作，答案就在于需要进行一次读取和一次写入。
+
+#### 删除4.5 堆文件和已排序文件
+
+- 删除一个记录首先需要找到记录的位置，这可以通过二分搜索算法以对数时间复杂度来完成，成本为 "log2B"。
+- 找到记录后，你会在页面中删除该记录，这将在页面中留下一个空隙。如果你想要维护文件的连续性和有序性，可能需要将后面的所有记录都向前移动一个位置来填补这个空隙。这个过程的成本是页面的一半（即删除点后的所有页面），乘以2（因为每个页面需要读取和写入），所以是 "2 \* (B/2)"。
+
+| 操作     | 堆文件                                                                                                                                       | 排序文件                                                                             |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 扫描所有记录 | B\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*D                                                                        | B\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*D               |
+| 等值搜索   | 0.5\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*B\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*D     | (log2B)\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*D         |
+| 范围搜索   | B\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*D                                                                        | ((log2B)+pages)\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*D |
+| 插入     | 2\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*D                                                                        | ((log2B)+B)\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*D     |
+| 删除     | (0.5\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*B+1)\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*D | ((log2B)+B)\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*D     |
+
+"N" 通常指的是执行某项操作所需要的磁盘页数。
+
+I/O 成本会远远大于CPU成本和RAM的成本
+
+#### 两种访问API
+
+1. **通过记录ID获取（fetch by recordId）**：这是一种定位和检索特定记录的方式，需要使用页ID（pageId）和槽ID（slotId）来准确找到记录。
+2. **扫描（scan）**：这是一种迭代访问文件中记录的方式，它从某个页面开始，顺序地访问文件中的所有记录。
+
+**数据条目**：存储在索引中的元素。对于这次讲解，假设数据条目是一对（k, recordId），这里的“k”是关键词，而“recordId”是记录标识符。
+
+**指向堆文件中的记录的指针**：这表示索引中的数据条目包含了指向实际记录在堆文件中位置的指针。
+
+**修改**：索引的设计要支持快速插入和删除操作，以便于维护数据的一致性和时效性。
+
+
+
+$$log_F{B}$$
+
+
+
+Pages touched on average 
+average case binary search
+第一项 1 (1 / B) 表示在第一次读取时找到目标的概率是 1 / B。
+第二项 2 (2 / B) 表示如果第一次没有找到，那么第二次找到目标的概率是 2 / B（因为范围缩小了一半，所以概率翻倍）。
+类似地，3 (4 / B) 和 4 (8 / B) 分别代表第三次和第四次读取时找到目标的概率。
+
+```
+		Heap File             | Sorted File
+```
+
+
+## 从这里开始应该是 B+ 树了
+#### B+树
+Each interior node is at least partially full
+```
+- d ≤ # entries ≤ 2d
+```
+Why not in sequential order?
+```
+Data pages allocated dynamically
+叶子节点（数据页）没有按顺序编号。在B树中，数据页是根据插入和删除操作动态分配的，因此它们的编号可能不会反映任何特定的顺序。这种动态分配允许B树在维持平衡的同时动态地调整大小
+```
+d 值怎么算？在图中 每个page 最多有5个指针，2d+1=5 所以d = 2
+\(img)
+[oiwiki上的解释]
+对于B树和B+树，平衡意味着所有的叶子节点都位于同一层。
+**始终保持平衡：**B+树是一种自平衡树，无论何时插入或删除操作，它都会通过分裂或合并节点来保持平衡。这保证了所有操作的最坏情况下时间复杂度都是对数级别的。
+**支持高效的插入和删除：**B+树设计成可以高效处理插入和删除操作，因为它会在操作后自动重新平衡
+**在根部增长而非叶子：**与其他树结构不同，当需要增加树的高度时，B+树会在根部增长，而不是在叶子节点增长。这意味着所有的叶子节点始终保持在同一层。
+
+比起B 树的一些不同:
+所有的叶子节点都包含全部键值信息，并且按键值的顺序构成了一个链表。
+叶子节点可能包含实际的数据记录，或者是数据记录的指针。
+内部节点（非叶子节点）仅用作索引，它们包含了子节点的最大（或最小）键值作为搜索参考。
+
+对于B+树而言 如果说它的阶数是d,意味着
+每个非根节点至少有 d个分支（或子节点），而根节点至少有两个分支，除非它是叶子节点。每个非根节点最多可以有 2d 个分支。
+
+叶子结点
+
+#### "Fan-out"
+指的是一个节点能有多少个子节点。在B树中，高"Fan-out"意味着一个节点可以有许多子节点，这可以减少树的高度，从而提高数据库查询的效率。
+
+###### 占用不变量（Occupancy Invariant）：
+
+>  半满...?有些点可以不是半满的比这个要少，把这样的页面取消掉。参考redefine部分
+
+图片下方解释了B+树的一个关键性质，即每个内部节点至少部分填充。这意味着每个内部节点至少有d个关键字，并且最多有2d个关键字。这里的d是树的阶数，它决定了树的最大扇出（即一个节点的最大子节点数），这里是2d+1。这个性质保证了树的平衡和搜索效率。
+
+节点关键字的数量：在B+树中，内部节点（不包括叶子节点）的关键字数量通常是子节点数量减去1
+#### Insert
+Heap file 
+* Stick at the end of file新记录被插入到文件的末端
+* Cost = `2*D`Read last page,append write(一次键盘I/O 找到插入位置，比如文件末尾）另一次I/O将新记录写入磁盘
+Sorted file 
+* Find location for the record Cost = $log_2_{BD}$
+#### 插槽目录
+- 位于页面的底部(Footer)
+- 包含一个指向可用空间的指针
+- 对于每个目录，插槽目录存储了记录的长度以及指向记录开始的位置的指针
+- 这些长度和指针是按照逆序 存储的，意味着最后一个记录的信息会首先存储到插槽目录中
+#### 记录标识符
+- 记录ID 在插槽表中的位置，通常由页码和记录在页中的索引号组成，例如第二页，第四条操作
+#### 删除操作
+如果需要删除一个记录
+
+**紧密打包记录(packed)：**
+所有的记录都是固定长度，并且在页面中紧密排列，没有空隙。
+由于记录长度固定，所以记录间不需要额外的指针或分隔符。
+**记录标识符（Record ID）：**
+每条记录的ID通常由页面ID和该记录在页面中的位置（即“位置在页面”）组成。
+由于所有记录长度相同，所以可以通过记录的序号乘以固定长度来计算出它在页面中的偏移量（Offset）。
+**添加记录：**
+新记录可以轻松地添加到页面的末尾，因为所有记录都有相同的长度，所以只需要在最后一个记录后面追加新记录即可。
+**删除记录：**
+对于删除操作，有几种处理方式。一种可能的方式是标记记录为已删除，然后将其留在原地，但这会导致页面中出现“空洞”。另一种方式是实际移动后面的记录来填补被删除记录的空间，这样可以保持记录紧密打包，但这种方式成本较高，因为需要移动大量数据。
+在某些系统中，可能会使用一个标记位来指示记录是否被删除，或者维护一个空闲列表，列出已删除的记录的位置，以便将来重用
+
+#### 固定长度记录格式
+字段类型相同，文件中所有记录的字段类型是相同的
+字段类型信息通常单独存储在系统的目录（systen Catlog)中 不会在每个记录中反复存储
+
+#### Record Formats: Variable Length
+What happens if field are variable length?
+比如那些无法预知确切长度的数据，比如人名，地址等等
+记录的存储 与固定的长度记录不同，变长记录会为每个字段分配固定的空间。相反，每个字段的实际使用的空间与他的内容长度相匹配，这样的好处是节约空间，不会为未使用的部份分配空间
+Single Record Insert and delete 在任何给定的操作中，仅仅插入或删除单个记录，这简化了插入和删除操作的过程，因为不需要考虑多记录的的事物管理或者一致性问题
+Equality selection - exactly only one match
+这个假设说明在进行等值查询，预计只会有一个确切的匹配结果，被查询的字段具有唯一性约束，例如主键或具有唯一索引的字段
+
+
+\(img)
+Conquer
+Rehash(conquer)
+Read partitions into RAM hash table one at a time ,using hash function f’n hr
+
+```
+Each bucket contains a small number of distinct values
+```
+Then read out RAM hash table bucket and write to disk
+```
+Ensuring that duplicate values are contigious
+```
+#### Bitmap
+还是会有空间浪费的情况
+#### 可变长度
+放在原始地方，记录id比较希望是稳定的
+
+
+
+#### Data Entry Storage Intro
+
+1. **索引中数据的表示形式**：(页面还是单独文件？)
+   - 索引可以存储实际数据或者指向数据的指针。
+   - 存储实际数据的索引称为包含索引（covering index），它们可以加快查询速度，因为不需要访问表中的数据。
+   - 存储指向数据的指针的索引则需要查询索引以获取指针，然后再访问表中的数据行。
+2. **数据文件中的存储方式**：
+   - 数据可以与索引“聚集”存储或“非聚集”存储。
+   - 聚集索引意味着表中的数据按索引的排序存储。只能有一个聚集索引，因为你不能同时以多种方式物理排序同一数据集。
+   - 非聚集索引和数据的物理存储顺序无关，它们仅提供指向数据的指针。
+3. **对性能的影响**：
+   - 数据的存储方式会极大地影响数据库的性能。
+   - 聚集索引通常提供了更快的数据访问速度，因为相关数据通常物理上存储在一起。
+   - 非聚集索引可能会导致更多的磁盘I/O操作，因为数据可能分散存储在不同的位置。
+
+
+
+<img src="数据库_img/Index_B+.jpg" style="zoom: 25%;" >
+
+（搜索键，[uid,页面偏移量]）
+
+[uid,页面偏移量] = 相应指针
+
+<img src = "数据库_img/Alternative_2_Index.jpg" style="zoom:25%;" >
+
+
+
+<img src = "数据库_img/Indx.jpg" style="zoom:25%;" >
+
+更加紧凑，能提高空间利用率，搜索更加高效?每一个叶子能跨多个数据
+
+#### 前缀键压缩（Prefix Key Compression
+
+1. **在叶子节点上压缩：** 当索引的叶子节点包含变长的键值时，可以通过仅存储键值中不同的部分来减少空间需求。比如，如果有多个键值以“Sarah”开头，只需完整存储第一个键值“Sarah Lee”，而后面的键值可以存储为“Manning”，“Zhu”等，省略掉共同的前缀“Sarah”。
+2. **分裂时确定最小分割前缀并向上复制：** 当一个叶子节点满了并需要分裂时，系统会找到一个分割点，这个点是基于前缀压缩之后的最小键值。然后，将这个最小的分割前缀“拷贝”或者“提升”到父节点，以便保持索引结构的有序性。
+
+Zip 都是一样的 作为共同前缀
+
+<img src = "数据库_img/B+treecomplexity.jpg" style="zoom:50%;" >
+
+- 存储数据时采用按引用存储（Alternative 2），这意味着不是将数据直接存储在索引结构中，而是存储指向数据实际存储位置的指针。
+- 使用聚集索引时，堆文件页面（Heap file pages）通常填充到2/3。这样做是为了优化性能，因为堆文件在初始时已经排序好。
+- “Fan-out（F）”表示索引中每个节点的子节点数量，它通常是相当大的。这是因为索引页面包含很多的<key, pointer>对，其数量通常和记录数（R）的数量级相同。
+- 假设索引是静态的，意味着索引不会因为数据的增加或删除而改变结构。
+
+要理解这些概念，先要明白数据库索引的工作原理：
+
+- **聚集索引**：表中的数据行的物理顺序与键值的逻辑（索引）顺序相同。由于聚集索引决定了数据的物理顺序，一个表只能有一个聚集索引。
+- **非聚集索引**：索引中的键值的顺序与硬盘上的物理存储顺序不同，通常需要额外的指针来指向数据的实际位置。
+
+叶子结点的数量 = B*R/E
+
+logF (BR/E) 树的高度 +1 （根节点）
+
+
+
+#### First Relocate metadata to folder
+
+插槽页面：槽表，保留页面开始的信息
+圆圈：指向新记录可以开始的地方
+元信息（Metadata）是关于数据的数据，它描述了其他数据的属性，使得我们能够理解和管理这些数据。元信息为数据提供了上下文，例如，它可以告诉我们数据的来源、格式、内容、创建时间和目的等信息。
+
+当在分隔页中插入一条记录时，通常会遵循以下步骤：
+
+放置记录：在页面的空闲空间中放置记录本身。
+创建指针和长度对：在页面的槽目录（Slot Directory）中，为这条记录创建一个指向记录起始位置的指针以及记录长度的对。槽目录是页面底部的一部分，它跟踪页面上每条记录的位置和大小。
+更新空闲空间指针：插入记录后，页面的空闲空间会减少，所以需要更新指向页面上当前空闲空间起始位置的指针
+
+#### Externel Merge Sort Algorithm
+- Let M denote the number of blocks in the main memory buffer availavle for sorting
+#### First stage : A number of sorted runs are created
+Each run is sorted but contains only some of the records of the relation
+i = 0
+repeat 
+```
+read M blocks of the relation,or the rest of the relation,whichever is smaller
+sort the in-memory part of the relation
+write the sorted data to run file R_i
+i = i+1
+```
+until the end of relation
+
+#### Second Stage
+The runs are merged 
+The total number of runs,N is less than M so that we can allocate one block to each run and have space left to hold one block of out put
+\(img)
+
+\(img)
+\(img)
+#### Double Buffering
+Main thread runs f(x) on one pair I/O bufs
+2nd thread drains/fills unused I/O bufs in parallel
+```
+Why is parallism available
+```
+
+##### ONE BUFFER PAGE RESERVED FOR OUTPUT:
+
+
+
+
+
+
+
+假设在合并过程中，我们会保留一个缓冲页专门用于输出。例如，在一个B路合并中，除了要处理的B个数据页之外，还需要一个额外的缓冲页用于存储合并的结果。
+
+1. 当Requestor完成对页面的使用后，它必须：
+   - 如果页面被修改，设置一个脏页标志（dirty bit）。这通常用于表示页面自从被读入内存以来已被修改，因此如果页面被替换出内存，其内容需要写回硬盘。
+   - 尽快取消固定（unpin）页面。取消固定意味着告诉内存管理系统该页面不再被该进程保持在内存中，可以被替换出去。
+     - 为什么要取消固定？因为这允许内存管理系统回收和重用内存，如果一个页面长时间被固定，它就不能被回收，这可能会导致资源利用不足。
+     - 如果不尽快取消固定会怎样？这可能导致内存不能被有效利用，其他需要内存的进程可能因为找不到可用页面而受阻。
+2. 同一个页面可能会被多次请求：
+   - 使用固定计数（pin count）来跟踪页面被固定的次数。每当页面被进程请求保持在内存时，固定计数增加。
+   - 当固定计数归零时（即没有任何进程需要该页面保持在内存中时），该页面成为可能的替换候选。
+3. 在页面被替换时，一致性控制（CC）和恢复可能会执行额外的输入/输出操作：
+   - 这里提到的“Write Ahead Log protocol”是一种确保事务数据一致性和恢复的机制，用于在系统故障时恢复数据库或文件系统的一致状态。更详细的内容会在之后讲到。
+
+
+
+
+
+##### 一个LRU的例子
+
+你可以看到一系列页面（Page 1 至 Page 7），它们被组织在一个环形结构中，这通常被比喻为一个时钟。每个页面都有一个对应的标记，可能是一个勾（√）或一个方块。勾通常表示页面最近被引用过（Reference bit 设置为 1），而方块则表示页面没有被最近引用过（Reference bit 设置为 0）。红色的图钉表示页面被固定（Pinned），即不应该被置换。
+
+图中有一支指针（通常被称为时钟指针），它指向当前考虑进行置换决策的页面。在本例中，指针指向“Page 5”。
+
+下面是处理页面请求的步骤，图中请求读取“Page 7”：
+
+1. 如果请求的页面已经在内存中（如图中的Page 7），则不需要页面置换。
+2. 当请求页面在内存中且未固定时，操作系统会设置该页面的引用位，表示它最近被访问过。
+3. 如果请求的页面不在内存中或被固定，则时钟指针会移动到下一个页面，并检查它的引用位。
+   - 如果引用位被设置，操作系统会清除它，并移动指针到下一个页面。
+   - 如果引用位未设置，且页面未固定，那么该页面将被置换，新的页面会被加载到内存中的这个位置。
+4. 如果发生页面置换，新页面的引用位被设置，并且通常也会设置固定位，以防止它立即再次被置换。
+
+<img src="数据库_img/LRU_replacement.jpg" style="zoom:25%;" >
+
+##### LRU的伪代码
+
+```C++
+page *clock_request_page(int &clk_hand, int pg_num) {
+    retval = NULL;
+    while (retval == NULL) {
+        current = frame_table[clk_hand];
+        // the happy case: replace current page
+        if (current.pin_count == 0 && current.refbit == 0) {
+            if (current.dirty == 1) {
+                write_page(fi.page, frames[clk_hand]);
+            }
+            read_page(pg_num, frames[clk_hand]);
+            retval = frames[clk_hand];
+            current.dirty = 0;
+            current.pin_count = 1;
+            current.refbit = 1; // referenced!
+        }
+        // second chance: unset reference bit
+        else if (current.pin_count == 0 && current.refbit == 1) {
+            current.refbit == 0;
+        }
+        // else pin_count > 1, so skip
+        clk_hand += (clk_hand + 1) % MAX_FRAME; // advance clock hand
+    }
+    return retval;
+}
+
+```
+
+
+
+##### 为什么LRU会导致 0% 的cache hit ?
+
+使用最近最少使用（LRU）缓存替换策略时，如果进行大量的顺序扫描操作，可能会导致0%的缓存命中率。这是因为LRU策略会在缓存满了之后，替换掉最久未使用的数据。在顺序扫描中，数据库可能会连续读取数据，每次读取都涉及到不同的数据页。
+
+图片中的文字解释了当你有 $B$ 个缓冲区（buffers）和一个文件包含 $N$ 页（pages），且 $N$ 大于 $B$ 时的缓存命中情况。具体来说:
+- 第一遍 $(\mathrm{N}$ 次尝试）：0 次命中
+- 接下来的 ( $B-1)$ 遍, 每遍有 $B$ 次命中
+- 然后的 (N-B) 遍, 每遍有 (B-1) 次命中
+- 接下来的 (B-1) 遍, 每遍有 $B$ 次命中
+- 以此类推......
+
+最后, 它给出了一个命中率的极限公式, 即:
+In limit: $\frac{(B(B-1)+(B-1)(N-B))}{(N(N-1))}=\frac{(B-1)}{(N-1)}$ hit rate
+
+**到每次“命中”都表示一个页面请求能够在缓冲区中被直接找到，而不需要从更慢的存储（例如硬盘）中重新加载该页面。**
