@@ -52,8 +52,63 @@
       background-image: url('https://s2.loli.net/2024/03/25/bvy4tSzepLDmskH.jpg'); /* 使用你从Unsplash复制的链接 */
       background-size: cover; /* 让背景图片覆盖整个页面 */
     }
+    #toc-container {
+      /* 调整目录容器的样式 */
+      position: fixed;
+      top: 100px; /* 根据需要调整 */
+      right: 0;
+      width: 200px; /* 根据需要调整 */
+      background: rgba(255,255,255,0.8);
+      padding: 10px;
+      border-radius: 4px;
+      max-height: 80%;
+      overflow-y: auto;
+    }
+    
+    #toc-container .toc-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    #toc li {
+      list-style: none;
+      margin-bottom: 5px;
+    }
+    
+    #toc li a {
+      text-decoration: none;
+      color: #333; /* 根据需要调整 */
+    }
+    
+    #toc li.h2 {
+      margin-left: 10px;
+    }
+    
+    #toc li.h3 {
+      margin-left: 20px;
+    }    
   </style>
-
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var toc = document.getElementById('toc');
+    var headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+  
+    headings.forEach(function(heading) {
+      var id = heading.id || heading.textContent.trim().toLowerCase().replace(/\s+/g, '-');
+      heading.id = id;
+  
+      var link = document.createElement('a');
+      link.href = '#' + id;
+      link.textContent = heading.textContent;
+  
+      var li = document.createElement('li');
+      li.appendChild(link);
+      li.className = heading.tagName.toLowerCase();
+  
+      toc.appendChild(li);
+    });
+  });
+</script>
 </head>
 
 
