@@ -4,23 +4,23 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="None">
         
         
-        <link rel="shortcut icon" href="img/favicon.ico">
-        <title>abigaled.github.io</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Numerical Optimization - abigaled.github.io</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script> 
     </head>
 
-    <body class="homepage">
+    <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href=".">abigaled.github.io</a>
+                <a class="navbar-brand" href="..">abigaled.github.io</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -30,11 +30,11 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="navitem active">
-                                <a href="." class="nav-link">Home</a>
-                            </li>
                             <li class="navitem">
-                                <a href="numerical_optimization/" class="nav-link">Numerical Optimization</a>
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Numerical Optimization</a>
                             </li>
                         </ul>
 
@@ -45,12 +45,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" class="nav-link disabled">
+                                <a rel="prev" href=".." class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="numerical_optimization/" class="nav-link">
+                                <a rel="next" class="nav-link disabled">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -71,39 +71,76 @@
     
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#welcome-to-mkdocs" class="nav-link">Welcome to MkDocs</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#commands" class="nav-link">Commands</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#project-layout" class="nav-link">Project layout</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+<p>gradient(梯度)</p>
+<p>多个变量的函数 $( f(x_1, x_2, \dots, x_n) )$:</p>
+<p>梯度是由该函数对每个变量的偏导数组成的向量：
+$$
+\nabla f = \left( \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \dots, \frac{\partial f}{\partial x_n} \right)
+$$</p>
+<pre><code>•   梯度的方向：梯度指向函数增长最快的方向。
+•   梯度的大小：梯度的大小（向量的模）表示函数在该点沿着梯度方向变化得有多快。
+</code></pre>
+<p>矩阵梯度()</p>
+<p>//TODO:</p>
+<p>范数：</p>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
+<li>L1 范数 (曼哈顿距离)：向量各分量的绝对值之和。</li>
 </ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
-</code></pre></div>
+<p>$$
+|x|_1=\sum i=1^n\left|x_i\right|
+$$</p>
+<ul>
+<li>L2 范数 (欧几里得范数)：向量各分量平方和的平方根。它是最常用的范数之一。</li>
+</ul>
+<p>$$
+|x|_2=\sqrt{\sum i=1^n x_i^2}
+$$</p>
+<ul>
+<li>$L \infty$ 范数：向量各分量的绝对值中的最大值。</li>
+</ul>
+<p>$$
+|x|_{\infty}=\max _i\left|x_i\right|
+$$</p>
+<ol>
+<li>Frobenius 范数 (Frobenius Norm)</li>
+</ol>
+<p>Frobenius 范数是矩阵元素的平方和的平方根, 类似于向量的 L2 范数。它可以用于衡量矩阵整体的大小。</p>
+<p>$$
+|A| F=\sqrt{\sum i=1^m \sum_{j=1}^n\left|a_{i j}\right|^2}
+$$</p>
+<p>其中 $a_{i j}$ 是矩阵 $A$ 中第 $i$ 行第 $j$ 列的元素。
+2. 1-范数 (列范数, L1 Norm)
+1-范数是矩阵每列元素绝对值和的最大值, 适合用于衡量矩阵在列方向上的变化。</p>
+<p>$$
+|A| 1=\max <em>j \sum i=1^m\left|a</em>{i j}\right|
+$$</p>
+<p>即每列元素绝对值和的最大值。
+3. $\infty$-范数 (行范数, L $\infty$ Norm)
+$\infty$-范数是矩阵每行元素绝对值和的最大值, 适合衡量矩阵在行方向上的变化。</p>
+<p>$$
+|A| \infty=\max <em>i \sum j=1^n\left|a</em>{i j}\right|
+$$</p>
+<p>$\infty$-范数是矩阵每行元素绝对值和的最大值, 适合衡量矩阵在行方向上的变化。</p>
+<p>$$
+|A| \infty=\max <em>i \sum j=1^n\left|a</em>{i j}\right|
+$$</p>
+<p>即每行元素绝对值和的最大值。
+4. 谱范数 (Spectral Norm, L2 范数)</p>
+<p>谱范数是矩阵的最大奇异值, 它反映了矩阵作为线性变换时, 对向量施加的最大拉伸效果。对于一个矩阵 $A$, 它的谱范数定义为:</p>
+<p>$$
+|A| 2=\sigma \max
+$$</p>
+<p>其中 $\sigma_{\max }$ 是矩阵的最大奇异值, 奇异值是通过奇异值分解 (SVD) 得到的。
+5. 算子范数 (Operator Norm)</p>
+<p>算子范数也称为 "诱导范数" (induced norm), 它衡量的是矩阵作为线性变换作用于向量时对向量的缩放程度。对于矩阵 $A$ 及其作用在任意非零向量 $x$ 上：</p>
+<p>$$
+|A| p=\sup x \neq 0 \frac{|A x|_p}{|x|_p}
+$$</p></div>
             </div>
         </div>
 
@@ -111,14 +148,14 @@ docs/
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="js/jquery-3.6.0.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
         <script>
-            var base_url = ".",
+            var base_url = "..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js"></script>
-        <script src="search/main.js"></script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -183,8 +220,3 @@ docs/
 
     </body>
 </html>
-
-<!--
-MkDocs version : 1.5.3
-Build Date UTC : 2024-09-29 03:03:18.632638+00:00
--->
