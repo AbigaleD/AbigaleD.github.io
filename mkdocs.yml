@@ -15,10 +15,6 @@ nav:
       - Overview: numerical_optimization/overview.md
       - Gradient Descent: numerical_optimization/gradient_descent.md
       - Newton's Method: numerical_optimization/newton_method.md
-  # - Machine Learning:
-  #     - Supervised Learning: ml/supervised_learning.md
-  #     - Unsupervised Learning: ml/unsupervised_learning.md
-  #     - Reinforcement Learning: ml/reinforcement_learning.md
 
 # Markdown 扩展
 markdown_extensions:
