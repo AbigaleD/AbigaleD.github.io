@@ -3,7 +3,7 @@ docs_dir: docs  # 这是存放你的 Markdown 文件的目录
 
 nav:
   - Home: index.md
-  - Numerical Optimization: numerical_optimization/docs/numerical_optimization.md
+  - Numerical Optimization: numerical_optimization.md
 
 theme:
   name: 'material'
