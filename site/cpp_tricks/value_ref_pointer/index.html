@@ -11,19 +11,19 @@
       
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.38">
     
     
       
-        <title>Abigale 's Blog</title>
+        <title>Value ref pointer - Abigale 's Blog</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.8c3ca2c6.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -42,7 +42,7 @@
       
     
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -77,7 +77,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="Abigale &#39;s Blog" class="md-header__button md-logo" aria-label="Abigale 's Blog" data-md-component="logo">
+    <a href="../.." title="Abigale &#39;s Blog" class="md-header__button md-logo" aria-label="Abigale 's Blog" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Value ref pointer
             
           </span>
         </div>
@@ -172,7 +172,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="Abigale &#39;s Blog" class="md-nav__button md-logo" aria-label="Abigale 's Blog" data-md-component="logo">
+    <a href="../.." title="Abigale &#39;s Blog" class="md-nav__button md-logo" aria-label="Abigale 's Blog" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -190,7 +190,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -245,7 +245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/numerical_optimization/overview/" class="md-nav__link">
+      <a href="../../numerical_optimization/overview/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -266,7 +266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/numerical_optimization/LinearEquation/" class="md-nav__link">
+      <a href="../../numerical_optimization/LinearEquation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -287,7 +287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/numerical_optimization/newton_method.md" class="md-nav__link">
+      <a href="../../numerical_optimization/newton_method.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -336,8 +336,89 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+  <h1>Value ref pointer</h1>
+
+<p>在C++中，传递参数可以通过**值传递**、<strong>引用传递</strong>、和**指针传递**这三种方式。每种方式都有不同的特点和适用场景。让我们逐一分析这三种传递方式的区别：</p>
+<p><strong>1. 值传递（Pass by Value）</strong></p>
+<p>​   •   <strong>工作原理</strong>：传递参数的**副本**，函数内部的操作不会影响原始参数。</p>
+<p>​   •   <strong>特点</strong>：</p>
+<p>​   •   函数内部会创建一个新的对象作为副本，并对该副本进行操作。</p>
+<p>​   •   对原始对象无影响，修改只发生在函数内部。</p>
+<p>​   •   如果参数是复杂类型（如std::string、std::vector等），可能会导致性能问题，因为副本的创建需要内存分配和数据拷贝。</p>
+<p>​   •   <strong>优点</strong>：</p>
+<p>​   •   不用担心原始数据被修改，适合需要保护原始数据不被修改的场景。</p>
+<p>​   •   <strong>缺点</strong>：</p>
+<p>​   •   传递大对象时，性能开销大。</p>
+<p><strong>例子</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot; world&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 只修改了副本，原字符串不受影响</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>2. 引用传递（Pass by Reference）</strong></p>
+<p>​   •   <strong>工作原理</strong>：传递参数的**引用**，函数内部操作的实际上是原始对象。</p>
+<p>​   •   <strong>特点</strong>：</p>
+<p>​   •   没有创建副本，直接操作原始对象。</p>
+<p>​   •   函数内部对参数的修改会反映在原始数据上。</p>
+<p>​   •   减少内存拷贝，提升性能。</p>
+<p>​   •   <strong>优点</strong>：</p>
+<p>​   •   减少不必要的内存消耗和拷贝，适合较大对象的传递。</p>
+<p>​   •   允许函数修改原始对象。</p>
+<p>​   •   <strong>缺点</strong>：</p>
+<p>​   •   引用传递的参数会被函数内部修改，不适合希望保护数据的场景。</p>
+<p>​   •   需要确保传递的对象有效，引用不能为null。</p>
+<p><strong>例子</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot; world&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 修改了原字符串</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>3. 指针传递（Pass by Pointer）</strong></p>
+<p>​   •   <strong>工作原理</strong>：传递参数的**指针**，函数通过指针访问或修改原始对象。</p>
+<p>​   •   <strong>特点</strong>：</p>
+<p>​   •   和引用类似，函数内部操作的是原始对象。</p>
+<p>​   •   需要对指针进行有效性检查（如nullptr），避免非法操作。</p>
+<p>​   •   适合动态内存分配或需要传递nullptr表示“无对象”的情况。</p>
+<p>​   •   <strong>优点</strong>：</p>
+<p>​   •   和引用一样，能够修改原始对象且不会拷贝内存。</p>
+<p>​   •   允许通过传递nullptr来表示空参数，增加灵活性。</p>
+<p>​   •   <strong>缺点</strong>：</p>
+<p>​   •   需要额外的指针有效性检查，容易出现空指针解引用错误。</p>
+<p>​   •   代码复杂性增加。</p>
+<p><strong>例子</strong>：</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">       </span><span class="o">*</span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s">&quot; world&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 修改了原字符串</span>
+
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>总结：</strong></p>
+<p><strong>传递方式</strong>    <strong>是否拷贝对象</strong>  <strong>是否可修改原对象</strong>    <strong>是否需要检查有效性</strong>   <strong>适用场景</strong></p>
+<p><strong>值传递</strong> 是   否   否   不需要修改对象，且对象较小</p>
+<p><strong>引用传递</strong>    否   是   否   需要修改对象，且对象较大</p>
+<p><strong>指针传递</strong>    否   是   是   需要修改对象，并且需要传递空值或动态内存</p>
+<p>**引用传递**和**指针传递**都是可以修改原始对象的方法，区别在于**引用传递**更加简洁，不需要手动检查指针是否有效；而**指针传递**更灵活，允许传递nullptr。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -371,10 +452,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/", "features": [], "search": "/assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.d6f25eb3.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d6f25eb3.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       
