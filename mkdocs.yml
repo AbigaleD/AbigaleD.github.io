@@ -13,7 +13,7 @@ nav:
   - Home: index.md
   - Numerical Optimization:
       - Overview: numerical_optimization/overview.md
-      - Gradient Descent: numerical_optimization/gradient_descent.md
+      - Equations: numerical_optimization/LinearEquation.md
       - Newton's Method: numerical_optimization/newton_method.md
 
 # Markdown 扩展
@@ -26,4 +26,43 @@ markdown_extensions:
   - pymdownx.caret
 
 extra_javascript:
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+      linenums: false
+  - toc:
+      permalink: true
+  - footnotes
+  - meta
+  - def_list
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_png
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist
+  - pymdownx.tilde
+
+extra_javascript:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
+
+
+# Google Analytics
+google_analytics:
+  - "UA-156919721-1"
+  - "auto"
+
+edit_uri:
+
+plugins:
+  - search
